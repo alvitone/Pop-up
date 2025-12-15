@@ -1,252 +1,269 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Another Repository - Popup Integration Example</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
 
-        .container {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            max-width: 500px;
-        }
+      .container {
+        background: white;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        max-width: 500px;
+      }
 
-        h1 {
-            color: #333;
-            margin-bottom: 1rem;
-        }
+      h1 {
+        color: #333;
+        margin-bottom: 1rem;
+      }
 
-        p {
-            color: #666;
-            margin-bottom: 2rem;
-            line-height: 1.6;
-        }
+      p {
+        color: #666;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+      }
 
-        .btn-group {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
+      .btn-group {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
 
-        button {
-            padding: 12px 32px;
-            font-size: 16px;
-            font-weight: bold;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+      button {
+        padding: 12px 32px;
+        font-size: 16px;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
 
-        .btn-primary {
-            background-color: #ff6b6b;
-            color: white;
-            flex: 1;
-            min-width: 150px;
-        }
+      .btn-primary {
+        background-color: #ff6b6b;
+        color: white;
+        flex: 1;
+        min-width: 150px;
+      }
 
-        .btn-primary:hover {
-            background-color: #ff5252;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-        }
+      .btn-primary:hover {
+        background-color: #ff5252;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+      }
 
-        .btn-secondary {
-            background-color: #4ecdc4;
-            color: white;
-            flex: 1;
-            min-width: 150px;
-        }
+      .btn-secondary {
+        background-color: #4ecdc4;
+        color: white;
+        flex: 1;
+        min-width: 150px;
+      }
 
-        .btn-secondary:hover {
-            background-color: #45b8b0;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-        }
+      .btn-secondary:hover {
+        background-color: #45b8b0;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+      }
 
-        /* Modal styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
+      /* Modal styles */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
 
-        .modal.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+      .modal.active {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
 
-        .modal-content {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 12px;
-            width: 90%;
-            max-width: 500px;
-            position: relative;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            animation: slideIn 0.3s ease-out;
-        }
+      .modal-content {
+        background-color: white;
+        padding: 2rem;
+        border-radius: 12px;
+        width: 90%;
+        max-width: 500px;
+        position: relative;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        animation: slideIn 0.3s ease-out;
+      }
 
-        @keyframes slideIn {
-            from {
-                transform: translateY(-50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+      @keyframes slideIn {
+        from {
+          transform: translateY(-50px);
+          opacity: 0;
         }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
 
-        .close-modal {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 28px;
-            font-weight: bold;
-            color: #666;
-            cursor: pointer;
-            background: none;
-            border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 4px;
-            transition: all 0.2s ease;
-        }
+      .close-modal {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 28px;
+        font-weight: bold;
+        color: #666;
+        cursor: pointer;
+        background: none;
+        border: none;
+        width: 30px;
+        height: 30px;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+      }
 
-        .close-modal:hover {
-            background-color: #f0f0f0;
-            color: #000;
-        }
+      .close-modal:hover {
+        background-color: #f0f0f0;
+        color: #000;
+      }
 
-        .iframe-container {
-            width: 100%;
-            height: 600px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            overflow: hidden;
-            margin-top: 1rem;
-        }
+      .iframe-container {
+        width: 100%;
+        height: 600px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        margin-top: 1rem;
+      }
 
-        .iframe-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
+      .iframe-container iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
 
-        .info-box {
-            background-color: #f0f7ff;
-            border-left: 4px solid #667eea;
-            padding: 1rem;
-            margin: 1.5rem 0;
-            text-align: left;
-            border-radius: 4px;
-        }
+      .info-box {
+        background-color: #f0f7ff;
+        border-left: 4px solid #667eea;
+        padding: 1rem;
+        margin: 1.5rem 0;
+        text-align: left;
+        border-radius: 4px;
+      }
 
-        .info-box h3 {
-            color: #667eea;
-            margin-bottom: 0.5rem;
-        }
+      .info-box h3 {
+        color: #667eea;
+        margin-bottom: 0.5rem;
+      }
 
-        .info-box p {
-            font-size: 14px;
-            margin: 0;
-        }
+      .info-box p {
+        font-size: 14px;
+        margin: 0;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <h1>Popup Integration Example</h1>
-        <p>This is another repository that integrates the popup component using iframe.</p>
+      <h1>Popup Integration Example</h1>
+      <p>
+        This is another repository that integrates the popup component using
+        iframe.
+      </p>
 
-        <div class="info-box">
-            <h3>Integration Methods:</h3>
-            <p>Method 1: Button with iframe below (see the popup.html below)</p>
-            <p>Method 2: Popup modal (click the button below)</p>
-        </div>
+      <div class="info-box">
+        <h3>Integration Methods:</h3>
+        <p>Method 1: Button with iframe below (see the popup.html below)</p>
+        <p>Method 2: Popup modal (click the button below)</p>
+      </div>
 
-        <div class="btn-group">
-            <button class="btn-primary" onclick="openPopupModal()">Open Popup Modal</button>
-            <button class="btn-secondary" onclick="toggleIframe()">Toggle IFrame View</button>
-        </div>
+      <div class="btn-group">
+        <button class="btn-primary" onclick="openPopupModal()">
+          Open Popup Modal
+        </button>
+        <button class="btn-secondary" onclick="toggleIframe()">
+          Toggle IFrame View
+        </button>
+      </div>
 
-        <div id="popupModal" class="modal">
-            <div class="modal-content">
-                <button class="close-modal" onclick="closePopupModal()">×</button>
-                <h2>Popup from IFrame</h2>
-                <p>This popup is loaded from an iframe. You can communicate with it using postMessage.</p>
-                <button class="btn-primary" style="width: 100%; margin-top: 1rem;" onclick="closePopupModal()">Close</button>
-            </div>
+      <div id="popupModal" class="modal">
+        <div class="modal-content">
+          <button class="close-modal" onclick="closePopupModal()">×</button>
+          <h2>Popup from IFrame</h2>
+          <p>
+            This popup is loaded from an iframe. You can communicate with it
+            using postMessage.
+          </p>
+          <button
+            class="btn-primary"
+            style="width: 100%; margin-top: 1rem"
+            onclick="closePopupModal()"
+          >
+            Close
+          </button>
         </div>
+      </div>
 
-        <div id="iframeContainer" class="iframe-container" style="display: none;">
-            <iframe id="popupIframe" src="popup.html"></iframe>
-        </div>
+      <div id="iframeContainer" class="iframe-container" style="display: none">
+        <iframe id="popupIframe" src="popup.html"></iframe>
+      </div>
     </div>
 
     <script>
-        // Method 1: Local Modal
-        function openPopupModal() {
-            document.getElementById('popupModal').classList.add('active');
-        }
+      // Method 1: Local Modal
+      function openPopupModal() {
+        document.getElementById("popupModal").classList.add("active");
+      }
 
-        function closePopupModal() {
-            document.getElementById('popupModal').classList.remove('active');
-        }
+      function closePopupModal() {
+        document.getElementById("popupModal").classList.remove("active");
+      }
 
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            const modal = document.getElementById('popupModal');
-            if (event.target === modal) {
-                modal.classList.remove('active');
-            }
-        };
-
-        // Method 2: IFrame Toggle
-        function toggleIframe() {
-            const container = document.getElementById('iframeContainer');
-            container.style.display = container.style.display === 'none' ? 'block' : 'none';
+      // Close modal when clicking outside
+      window.onclick = function (event) {
+        const modal = document.getElementById("popupModal");
+        if (event.target === modal) {
+          modal.classList.remove("active");
         }
+      };
 
-        // Method 3: Send message to iframe popup
-        function openIframePopup() {
-            const iframe = document.getElementById('popupIframe');
-            if (iframe && iframe.contentWindow) {
-                iframe.contentWindow.postMessage('openPopup', '*');
-            }
-        }
+      // Method 2: IFrame Toggle
+      function toggleIframe() {
+        const container = document.getElementById("iframeContainer");
+        container.style.display =
+          container.style.display === "none" ? "block" : "none";
+      }
 
-        function closeIframePopup() {
-            const iframe = document.getElementById('popupIframe');
-            if (iframe && iframe.contentWindow) {
-                iframe.contentWindow.postMessage('closePopup', '*');
-            }
+      // Method 3: Send message to iframe popup
+      function openIframePopup() {
+        const iframe = document.getElementById("popupIframe");
+        if (iframe && iframe.contentWindow) {
+          iframe.contentWindow.postMessage("openPopup", "*");
         }
+      }
+
+      function closeIframePopup() {
+        const iframe = document.getElementById("popupIframe");
+        if (iframe && iframe.contentWindow) {
+          iframe.contentWindow.postMessage("closePopup", "*");
+        }
+      }
     </script>
-</body>
+  </body>
 </html>
