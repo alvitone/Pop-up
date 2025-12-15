@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vue Popup Component</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-
   </head>
   <body>
     <div id="app">
@@ -35,11 +34,11 @@
                     </div>
                 </Teleport>
             `,
-        };
+      };
 
-        const app = createApp({
-            components: { Popup },
-            setup() {
+      const app = createApp({
+        components: { Popup },
+        setup() {
           const isOpen = ref(false);
 
           const closePopup = () => {
